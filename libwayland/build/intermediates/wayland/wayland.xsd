@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Do not edit. This document is automatically generated
+	 from wayland.dtd using IntelliJ Idea's XML Actions... -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="protocol">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="copyright"/>
+				<xs:element minOccurs="0" ref="description"/>
+				<xs:element maxOccurs="unbounded" ref="interface"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="copyright" type="xs:string"/>
+	<xs:element name="interface">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="description"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="request"/>
+					<xs:element ref="event"/>
+					<xs:element ref="enum"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="name" use="required"/>
+			<xs:attribute name="version" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="request">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="description"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="arg"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required"/>
+			<xs:attribute name="type"/>
+			<xs:attribute name="since"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="event">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="description"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="arg"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required"/>
+			<xs:attribute name="type"/>
+			<xs:attribute name="since"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="enum">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="description"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="entry"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required"/>
+			<xs:attribute name="since"/>
+			<xs:attribute name="bitfield"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="entry">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="description"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required"/>
+			<xs:attribute name="value" use="required"/>
+			<xs:attribute name="summary"/>
+			<xs:attribute name="since"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="arg">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="description"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required"/>
+			<xs:attribute name="type" use="required"/>
+			<xs:attribute name="summary"/>
+			<xs:attribute name="interface"/>
+			<xs:attribute name="allow-null"/>
+			<xs:attribute name="enum"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="description">
+		<xs:complexType mixed="true">
+			<xs:attribute name="summary" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

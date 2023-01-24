@@ -1,0 +1,7 @@
+See file:///home/twaik/libwayland/build/tmp/compileWaylandNativeSharedLibraryWaylandNativeCpp/output.txt for all output for compileWaylandNativeSharedLibraryWaylandNativeCpp.
+compiling hello.cpp successful.
+/home/twaik/libwayland/src/waylandNative/cpp/hello.cpp:398:27: warning: inline function ‘static _jobject* wl_java_interface::getJavaInstance(void*)’ used but never defined
+  398 |     static inline jobject getJavaInstance(void* res);
+      |                           ^~~~~~~~~~~~~~~
+
+Finished compileWaylandNativeSharedLibraryWaylandNativeCpp, see full log file:///home/twaik/libwayland/build/tmp/compileWaylandNativeSharedLibraryWaylandNativeCpp/output.txt.

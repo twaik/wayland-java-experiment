@@ -1,0 +1,92 @@
+import org.gradle.internal.jvm.Jvm
+import org.gradle.internal.os.OperatingSystem
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'cpp'
+    id 'org.freedesktop.wayland.scanner'
+}
+
+mainClassName = 'org.freedesktop.App'
+
+repositories {
+    mavenCentral()
+}
+
+project.ext.lwjglVersion = "3.3.1"
+
+switch (OperatingSystem.current()) {
+    case OperatingSystem.LINUX:
+        def osArch = System.getProperty("os.arch")
+        project.ext.lwjglNatives = osArch.startsWith("arm") || osArch.startsWith("aarch64")
+                ? "natives-linux-${osArch.contains("64") || osArch.startsWith("armv8") ? "arm64" : "arm32"}"
+                : "natives-linux"
+        break
+}
+
+dependencies {
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-assimp"
+    implementation "org.lwjgl:lwjgl-egl"
+    implementation "org.lwjgl:lwjgl-glfw"
+    implementation "org.lwjgl:lwjgl-openal"
+    implementation "org.lwjgl:lwjgl-opengles"
+    implementation "org.lwjgl:lwjgl-stb"
+    implementation 'org.jetbrains:annotations:20.1.0'
+    implementation 'org.jetbrains:annotations:20.1.0'
+    implementation 'org.jetbrains:annotations:20.1.0'
+    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-assimp::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-opengles::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+    testImplementation('junit:junit:4.13.2')
+}
+
+wayland {
+  javaPackage 'org.freedesktop.protocols'
+  from 'src/main/protocol'
+}
+
+sourceCompatibility = 18
+targetCompatibility = 18
+
+test {
+    systemProperty "java.library.path",
+            file("${buildDir}/libs/waylandNative/shared").absolutePath + ":" +
+            file("${buildDir}/libs/waylandTest/shared").absolutePath
+}
+
+model {
+  platforms {
+    x64 {
+        architecture "x64"
+    }
+  }
+
+  components {
+    waylandNative(NativeLibrarySpec) {
+      binaries.all {
+        cppCompiler.args '-I', "${Jvm.current().javaHome}/include"
+        cppCompiler.args '-I', "${Jvm.current().javaHome}/include/linux"
+        cppCompiler.args '-D_FILE_OFFSET_BITS=64', '-ggdb'
+        linker.args '-L/home/twaik/wayland', '-Wl,-rpath=/home/twaik/wayland', '-lwayland-server', '-ggdb'
+      }
+    }
+    waylandTest(NativeLibrarySpec) {
+      binaries.all {
+        cppCompiler.args '-I', "${Jvm.current().javaHome}/include"
+        cppCompiler.args '-I', "${Jvm.current().javaHome}/include/linux"
+        cppCompiler.args '-D_FILE_OFFSET_BITS=64'
+        linker.args '-lwayland-client'
+      }
+    }
+  }
+}
+
+compileJava.dependsOn  'waylandNativeSharedLibrary'
+test.dependsOn  'waylandTestSharedLibrary'

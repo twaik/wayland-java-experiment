@@ -1,0 +1,10 @@
+-shared
+-Wl,-soname,libwaylandNative.so
+-o
+/home/twaik/libwayland/build/libs/waylandNative/shared/libwaylandNative.so
+/home/twaik/libwayland/build/objs/waylandNative/shared/waylandNativeCpp/diwz9z159vs4celozptyzj20k/hello.o
+-L/home/twaik/wayland
+-Wl,-rpath=/home/twaik/wayland
+-lwayland-server
+-ggdb
+-m64

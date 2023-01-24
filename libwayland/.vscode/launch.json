@@ -1,0 +1,13 @@
+{
+    "configurations": [
+    {
+        "type": "gdb",
+        "request": "attach",
+        "name": "Attach to gdbserver",
+        "target": ":5555",
+        "remote": true,
+        "cwd": "${workspaceRoot}",
+        "valuesFormatting": "parseText"
+    }
+    ]
+}

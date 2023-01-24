@@ -1,0 +1,4 @@
+See file:///home/twaik/libwayland/build/tmp/linkWaylandNativeSharedLibrary/output.txt for all output for linkWaylandNativeSharedLibrary.
+linking libwaylandNative.so successful.
+
+Finished linkWaylandNativeSharedLibrary, see full log file:///home/twaik/libwayland/build/tmp/linkWaylandNativeSharedLibrary/output.txt.
